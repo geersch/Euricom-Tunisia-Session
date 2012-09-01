@@ -172,7 +172,9 @@
     });
 
     function renderRow(timesheet) {
-        var row = '<tr data-row-id="' + timesheet.id + '"><td><input type="checkbox" value="' + timesheet.id + '" data-id="' + timesheet.id + '" /></td><td>' + timesheet.firstname + '</td><td>' + timesheet.lastname + '</td><td>' + timesheet.month + '</td><td>' + timesheet.year + '<td><a href="#" class="edit" data-id="' + timesheet.id + '">Edit</a></td></td></tr>';
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        
+        var row = '<tr data-row-id="' + timesheet.id + '"><td><input type="checkbox" value="' + timesheet.id + '" data-id="' + timesheet.id + '" /></td><td>' + timesheet.firstname + '</td><td>' + timesheet.lastname + '</td><td>' + monthNames[timesheet.month - 1] + '</td><td>' + timesheet.year + '<td><a href="#" class="edit" data-id="' + timesheet.id + '">Edit</a></td></td></tr>';
         return row;
     }
 
