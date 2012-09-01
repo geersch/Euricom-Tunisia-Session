@@ -1,0 +1,33 @@
+﻿@model Euricom.Web.UI.Models.Timesheet
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">×</button>
+	<h3>Timesheet</h3>
+</div>
+
+@using (Html.BeginForm("PostTimesheet", "Home", FormMethod.Post, new { id = "Timesheet" }))
+{
+    <div class="modal-body">	
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName)
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName)
+        <table class="table-modal">
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Month)
+                    @Html.DropDownListFor(m => m.Month, Model.Months)
+                </td>
+                <td>
+                    @Html.LabelFor(m => m.Year)
+                    @Html.TextBoxFor(m => m.Year, new { @class="input-year", disabled="disabled" })
+                </td>
+            </tr>
+		</table>
+    </div>
+     
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+		<input type="submit" class="btn btn-primary" value="Add" />
+	</div>
+}
