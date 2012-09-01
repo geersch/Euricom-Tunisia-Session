@@ -167,7 +167,21 @@
 
     $('#timesheets').on("click", 'a.edit', function () {
         var id = $(this).attr('data-id');
-        console.log(id);
+
+        $.getJSON(
+            '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
+            { id: id },
+            function (timesheet) {
+                var form = $('#Timesheet');
+                $('<input>').attr('type', 'hidden').attr('id', 'Id').attr('name', 'Id').val(timesheet.Id).prependTo(form);
+                form.find('#FirstName').val(timesheet.firstname);
+                form.find('#LastName').val(timesheet.lastname);
+                form.find('#Month').val(timesheet.month);
+                form.find('#Year').val(timesheet.year);
+            }
+        );
+
+        $('#timesheet-modal').modal('show');
     });
 
     $(function () {
