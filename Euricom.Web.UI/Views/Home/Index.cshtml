@@ -45,7 +45,7 @@
 </div>
 
 <span class="message-loading" data-bind="visible: loading">Loading...</span>
-<span id="no-timesheets" data-bind="visible: !showTimesheets()">No timesheets found.</span>
+<span id="no-timesheets" data-bind="visible: !showTimesheets() && !loading()">No timesheets found.</span>
 
 <div class="modal hide fade" id="timesheet-modal">
     @{ Html.RenderPartial("_Timesheet", new Timesheet());}
