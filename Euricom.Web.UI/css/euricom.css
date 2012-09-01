@@ -1,0 +1,28 @@
+﻿body {
+    position: relative;
+    padding-top: 60px; /* Place the container beneath the bottom of the navbar */
+}
+
+form { margin: 0; }
+
+.table-nonfluid {
+   width: auto;
+}
+
+.input-year {
+    width: 35px;
+}
+
+.table-modal td {
+    padding-right: 8px;
+}
+
+.message-loading {
+    font-weight: bold;
+    background-image: url("../img/ajax-loader.gif");
+    background-repeat: no-repeat;
+    width: auto;
+    float: left;
+    text-indent: 25px;
+    line-height: 16px;
+}
