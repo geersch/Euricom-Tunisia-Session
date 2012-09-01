@@ -21,10 +21,12 @@ namespace Euricom.Web.UI.Models
 
         [JsonProperty(PropertyName = "firstname")]
         [Display(Name = "First name")]
+        [Required(ErrorMessage = "First name is required.")]
         public string FirstName { get; set; }
 
         [JsonProperty(PropertyName = "lastname")]
         [Display(Name = "Last name")]
+        [Required(ErrorMessage = "Last name is required.")]
         public string LastName { get; set; }
 
         [JsonProperty(PropertyName = "month")]

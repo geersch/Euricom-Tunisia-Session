@@ -123,6 +123,8 @@
     $('#Timesheet').submit(function (e) {
         e.preventDefault();
         var form = $(this);
+        if (!form.valid())
+            return false;
 
         var json = JSON.stringify(getTimesheetFromFrom(form));
 
