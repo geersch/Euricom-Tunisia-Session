@@ -36,7 +36,7 @@
                 <td><input type="checkbox" data-bind="value: id"/></td>
                 <td data-bind="text: firstname"></td>
                 <td data-bind="text: lastname"></td>
-                <td data-bind="text: month"></td>
+                <td data-bind="text: formattedMonth"></td>
                 <td data-bind="text: year"></td>
                 <td><a href="#" class="edit" data-bind="attr: { 'data-id': id }, click: edit">Edit</a></td>
             </tr>
@@ -71,14 +71,9 @@
 </div>
 
 <script type="text/javascript">
-    var model;
-    
-    $(function () {
-        model = new viewModel();
-        ko.applyBindings(model);
-        model.loadTimesheets();
-    });
+var model;
 
+$(function () {
     var dataRow = function (timesheet) {
         this.id = ko.observable(timesheet.id);
         this.firstname = ko.observable(timesheet.firstname);
@@ -112,6 +107,11 @@
 
             $('#timesheet-modal').modal('show');
         };
+
+        this.formattedMonth = ko.computed(function () {
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return monthNames[this.month() - 1];
+        }, this);
     };
 
     var data = function () {
@@ -246,5 +246,10 @@
             return timesheet;
         };
     };
+
+    model = new viewModel();
+    ko.applyBindings(model);
+    model.loadTimesheets();
+});
 
 </script>
