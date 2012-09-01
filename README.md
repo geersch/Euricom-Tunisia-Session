@@ -2,7 +2,7 @@
 
 ## Technology stack
 
-- ASP.NET MVC
+- ASP.NET MVC 4
 - ASP.NET WebAPI
 - MongoDB
 - Twitter Bootstrap
