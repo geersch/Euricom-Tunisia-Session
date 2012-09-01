@@ -167,6 +167,7 @@
                     }
                     else {
                         model.data.timesheets.push(new dataRow(timesheet));
+                        self.showTimesheets(self.data.timesheets().length > 0);
                     }
                     $('#timesheet-modal').modal('hide');
                 },
