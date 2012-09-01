@@ -1,4 +1,4 @@
-# Euricom - Tunesia
+# Euricom - Tunesia Session
 
 ## Technology stack
 
