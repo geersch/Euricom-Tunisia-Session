@@ -9,16 +9,12 @@ using Newtonsoft.Json;
 namespace Euricom.Web.UI.Models
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class Timesheet
+    public class Timesheet : Entity
     {
         public Timesheet()
         {
-            Id = Guid.NewGuid();
             Year = DateTime.Now.Year;
         }
-
-        [JsonProperty(PropertyName = "id")]
-        public Guid Id { get; set; }
 
         [JsonProperty(PropertyName = "firstname")]
         [Display(Name = "First name")]
