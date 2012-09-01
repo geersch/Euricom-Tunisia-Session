@@ -135,7 +135,7 @@
             success: function (timesheet) {
                 $('#timesheet-modal').modal('hide');
                 var table = $('#timesheets').find('tbody');
-                table.before(table.before(renderRow(timesheet)));
+                table.before(renderRow(timesheet));
             },
             error: function () {
                 console.log('error');
