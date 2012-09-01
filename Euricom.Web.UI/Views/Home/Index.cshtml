@@ -151,6 +151,8 @@
             var update = form.find("input[type='hidden'][id='id']").val();
             var httpVerb = !update ? "POST" : "PUT";
 
+            var self = this;
+
             $.ajax({
                 url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
                 type: httpVerb,
