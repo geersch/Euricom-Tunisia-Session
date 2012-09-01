@@ -1,6 +1,10 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace Euricom.Web.UI
 {
@@ -15,8 +19,6 @@ namespace Euricom.Web.UI
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            
         }
     }
 }

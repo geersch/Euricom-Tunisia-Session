@@ -13,6 +13,7 @@ namespace Euricom.Web.UI.Models
     {
         public Timesheet()
         {
+            Id = Guid.NewGuid();
             Year = DateTime.Now.Year;
         }
 
