@@ -38,6 +38,7 @@
 </div>
 
 <span class="message-loading">Loading...</span>
+<span id="no-timesheets">No timesheets found.</span>
 
 <div class="modal hide fade" id="timesheet-modal">
     @{ Html.RenderPartial("_Timesheet", new Timesheet());}
@@ -99,6 +100,8 @@
                     var row = $('#timesheets').find("input[type='checkbox'][data-id='" + id + "']").parent().parent();
                     row.remove();
                 });
+
+                checkTimesheetData();
             },
             error: function () {
                 alert('error');
@@ -145,10 +148,11 @@
                     oldRow.remove();
                 }
                 else {
-                    var table = $('#timesheets').find('tbody');
-                    table.before(row);
+                    $('#timesheets > tbody').append(row);
                 }
                 $('#timesheet-modal').modal('hide');
+
+                checkTimesheetData();
             },
             error: function () {
                 console.log('error');
@@ -173,7 +177,6 @@
 
     function renderRow(timesheet) {
         var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        
         var row = '<tr data-row-id="' + timesheet.id + '"><td><input type="checkbox" value="' + timesheet.id + '" data-id="' + timesheet.id + '" /></td><td>' + timesheet.firstname + '</td><td>' + timesheet.lastname + '</td><td>' + monthNames[timesheet.month - 1] + '</td><td>' + timesheet.year + '<td><a href="#" class="edit" data-id="' + timesheet.id + '">Edit</a></td></td></tr>';
         return row;
     }
@@ -197,17 +200,29 @@
         $('#timesheet-modal').modal('show');
     });
 
+    function checkTimesheetData() {
+        var timesheets = $('#timesheets > tbody > tr').length > 0;
+        console.log($('#timesheets > tbody > tr').length);
+        if (timesheets) {
+            $('#timesheetGrid').show();
+            $('#no-timesheets').hide();
+        } else {
+            $('#timesheetGrid').hide();
+            $('#no-timesheets').show();
+        }
+    }
+
     $(function () {
         $.getJSON(
             '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
             function (timesheets) {
-                var table = $('#timesheets').find('tbody');
-                $.each(timesheets, function (index, timesheet) {
-                    table.before(renderRow(timesheet));
-                });
-
-                $('#timesheetGrid').show();
                 $('.message-loading').hide();
+                var table = $('#timesheets > tbody');
+                console.log(table);
+                $.each(timesheets, function (index, timesheet) {
+                    table.append(renderRow(timesheet));
+                });
+                checkTimesheetData();
             }
         );
     });
