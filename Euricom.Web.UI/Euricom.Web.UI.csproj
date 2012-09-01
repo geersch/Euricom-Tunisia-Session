@@ -160,6 +160,7 @@
     <Content Include="js\jquery.validate.min.js" />
     <Content Include="js\jquery.validate.unobtrusive.js" />
     <Content Include="js\jquery.validate.unobtrusive.min.js" />
+    <Content Include="js\knockout-2.1.0.js" />
     <Content Include="readme.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

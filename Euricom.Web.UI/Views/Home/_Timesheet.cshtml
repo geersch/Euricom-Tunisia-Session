@@ -5,7 +5,7 @@
 	<h3>Timesheet</h3>
 </div>
 
-@using (Html.BeginForm("PostTimesheet", "Home", FormMethod.Post, new { id = "Timesheet" }))
+@using (Html.BeginForm("PostTimesheet", "Home", FormMethod.Post, new { id = "Timesheet", @data_bind = "submit: postTimesheet" }))
 {
     <div class="modal-body">	
         @Html.LabelFor(m => m.FirstName)
