@@ -14,16 +14,45 @@
 
 <section id="download-github">
     <h3>2. Set Up Git</h3>
-    <p>
-        Follow the <a href="https://help.github.com/articles/set-up-git" target="_blank">setup guide</a> at GitHub or skip it and download the native <a href="http://github-windows.s3.amazonaws.com/GitHubSetup.exe">GitHub for Windows</a> app.
-    </p>
+    <ol>
+        <li>Download the native <a href="http://github-windows.s3.amazonaws.com/GitHubSetup.exe">GitHub for Windows</a> app</li>
+        <li>Sign in and setup git (name + e-mail)</li>
+        <li>Change the default storage location</li>
+    </ol>
+
+    <p>Or alternatively follow the <a href="https://help.github.com/articles/set-up-git" target="_blank">setup guide</a> at GitHub.</p>
 </section>
 
 <section id="download-github">
     <h3>3. Create Repository</h3>
     <ol>
-        <li>Create a remote repository</li>
+        <li>Create a remote repository (initialize with README and .gitignore)</li>
         <li>Start GitHub for Windows and clone the remote repository</li>
+        <li>Open a Shell for the local repository</li>
+    </ol>
+</section>
+
+<section id="download-github">
+    <h3>4. Working with GitHub</h3>
+    <ol>
+        <li>Start Visual Studio and create a new solution</li>
+        <li>Perform an initial commit</li>
+        <ul>
+            <li>git status (untraced files)</li>
+            <li>git add . (add untracked files)</li>
+            <li>git commit -m "Description" (local commit)</li>
+            <li>git push (push to remote repository)</li>
+            <li>git log or git log --pretty=oneline (commit history)</li>
+        </ul>
+        <li>Change some code</li>
+        <ul>
+            <li>git status</li>
+            <li>git add .</li>
+            <li>git commit -m "Description"</li>
+        </ul>
+        <li>Repeat the previous step</li>
+        <li>Undo last local commit (git reset HEAD^) and push to the remote repository (git push)</li>
+        <li>Clean up. Delete the remote and local repository</li>
     </ol>
 </section>
 
