@@ -10,3 +10,31 @@
     <h1>AppHarbor</h1>
 </div>
 
+<section id="create-account">
+    <h3>1. Create a free account</h3>
+    <p><a href="https://appharbor.com/user/new" target="_blank">Create a free account on AppHarbor</a></p>
+</section>
+
+<section id="download-github">
+    <h3>2. Continuous Deployment</h3>
+    <ol>
+        <li>Sign in to AppHarbor</li>
+        <li>Create an application</li>
+        <li>Find the "Create Build URL" button. This will copy the build URL into your clipboard.</li>
+        <ul>
+            <li>Example: <a href="#">https://appharbor.com:443/applications/euricomtunesiasession/builds?authorization=Ndo5LwHwjUuzdVgU0PbfQNRALBv%2fboFJp0dpNVAx078%3d</a></li>
+        </ul>
+        <li>Sign in to GitHub</li>
+        <li>Go to your project's Admin section</li>
+        <li>Select the Service Hooks option</li>
+        <li>Select the AppHarbor service hook</li>
+        <li>Enter the following values:</li>
+        <ul>
+            <li>Application Slug: Name of application on AppHarbor</li>
+            <li>Value of the "authorization" query parameter in the build URL</li>
+        </ul>
+        <li>Make sure the option "Active" is checked and save the settings</li>
+    </ol>
+
+    <p>Each time you push changes to the remote repository these will be pushed to AppHarbor which will automatically compile and publish your web project.</p>
+</section>
