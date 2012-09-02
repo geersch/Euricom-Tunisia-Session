@@ -24,7 +24,7 @@ namespace Euricom.Web.UI.Controllers
             return View();
         }
 
-        public ActionResult MongoDb()
+        public ActionResult Mongo()
         {
             return View();
         }
