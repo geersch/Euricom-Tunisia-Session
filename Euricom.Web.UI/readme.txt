@@ -93,6 +93,10 @@ Start MongoVUE and add a new connection
 4. MongoDB C# driver
 Download the MongoDB C# driver (NuGet) to work with MongoDB in .NET
 
+5. Overview of MongoDB driver usage 
+  IMongoContext (mention DI via Ninject)
+  --> Continue with overview of Timesheet API (see Web API)
+
 Web API
 -------
 
@@ -106,6 +110,30 @@ Knockout
 Download the latest version of Knockout.
 Reference the file using a <script> tag somewhere on your HTML pages
   <script type='text/javascript' src='knockout-2.1.0.js'></script>
+
+2. Build Page
+Add dummy timesheets page (empty)
+Re-build Knockout enabled page step by step
+  Add Javascript section to page
+  Declare view model
+     var viewModel = { }
+  Add observable for timesheets (array of timesheet)
+  Add timesheet function (observable for id, firstname, lastname, month, year)
+  Add stub for loading timesheets (loadTimesheets)
+  Add html for table
+    Column headers
+	tbody with template (show binding)
+  Complete loading method	  
+  Loading, showTimesheets observables (-> computed observable)
+  Computed observable for month names
+  Include form for adding/editing timesheets
+  Add postTimesheet function to viewModel
+    Support for adding timesheets (reset form, json serialization)
+	Support for editing timesheets 
+  Form validation
+  Post form (include id for updates)
+  Add btn-toolbar (select all, deselect all, delete)
+  Add delete functionality (modal and view model functions)
 
 AppHarbor
 ---------
