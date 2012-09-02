@@ -4,6 +4,16 @@ using Newtonsoft.Json;
 
 namespace Euricom.Web.UI.Models
 {
+    /*
+     * BSON ObjectID is a 12-byte value consisting of:
+     * - a 4-byte timestamp (seconds since epoch)
+     * - a 3-byte machine id
+     * - a 2-byte process id
+     * - a 3-byte counter
+     * 
+     * 0123 456     78  91011
+     * time machine pid inc
+     */
     public class ObjectIdConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)

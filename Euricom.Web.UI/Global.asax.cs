@@ -15,6 +15,9 @@ namespace Euricom.Web.UI
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            // Remove the XML formatter, JSON by default
+            GlobalConfiguration.Configuration.Formatters.RemoveAt(1);
         }
     }
 }
