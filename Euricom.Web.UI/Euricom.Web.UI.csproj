@@ -156,6 +156,7 @@
     <Content Include="img\knockout.png" />
     <Content Include="img\mongodb.png" />
     <Content Include="img\octocat.png" />
+    <Content Include="img\timesheet.png" />
     <Content Include="img\twitter.png" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />

@@ -9,3 +9,59 @@
     </div>
     <h1>MongoDB</h1>
 </div>
+
+<section id="setup-mongodb">
+    <h3>1. Set Up MongoDB</h3>
+    <ol>
+        <li>Download <a href="http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2.2.0.zip">MongoDB</a> for Windows (32 or 64-bit)</li>
+        <li>Extract the archive to c:\mongodb (notice the bin subdirectory)</li>
+        <ol>
+            <li>MongoDB is self-contained and does not have any other system dependencies. You can run it from any folder you choose.</li>
+        </ol>
+        <li>MongoDB requires a data folder to store its files. Start a Command Prompt and execute the following commands:</li>
+        <ul>
+            <li>cd \</li>
+            <li>md data</li>
+            <li>md data\db</li>
+        </ul>
+        <li>To start MongoDB, execute the following commands from the Command Prompt:</li>
+        <ul>
+            <li>c:\mongodb\bin\mongod.exe</li>
+        </ul>
+    </ol>
+</section>
+
+<section id="windows-service">
+    <h3>2. MongoDB as a Windows Service</h3>
+    <ol>
+        <li>Setup MongoDB as a Windows Service, so that the database will start automatically after each reboot</li>
+        <li>Open a Command Prompt (Run as Administrator) and execute the following commands:</li>
+        <ul>
+            <li>md c:\mongodb\log (stores MongoDB log files)</li>
+            <li>echo logpath=c:\mongodb\log\mongo.log > c:\mongodb\mongod.cfg (Create MongoDB configuration file)</li>
+            <li>c:\mongodb\bin\mongod.exe --config c:\mongodb\mongod.cfg --install (install the MongoDB service)</li>
+            <li>net start MongoDB (run the service)</li>
+        </ul>
+    </ol>
+</section>
+
+<section id="mongovue">
+    <h3>3. Manage MongoDB easily with MongoVUE</h3>
+    <ol>
+        <li><a href="http://www.mongovue.com/Installer-1.5.3.zip" target="_blank">Download MongoVUE</a></li>
+        <li>Install it (be sure to allow the Windows Firewall exception)</li>
+        <li>Start MongoVUE and add a new connection</li>
+        <ul>
+            <li>Name: localhost</li>
+            <li>Server: localhost</li>
+            <li>Port: 27017</li>
+        </ul>
+    </ol>
+</section>
+
+<section id="mongovue">
+    <h3>4. MongoDB C# driver</h3>
+    <ol>
+        <li>Download the <a href="http://nuget.org/packages/mongocsharpdriver" target="_blank">MongoDB C# driver</a> (NuGet) to work with MongoDB in .NET</a></li>
+    </ol>
+</section>
