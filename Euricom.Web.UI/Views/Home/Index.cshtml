@@ -1,12 +1,11 @@
 ﻿@using Euricom.Web.UI.Models
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_master.cshtml";
 }
 
 <div class="page-header">
-    <h1>Timesheets (<span data-bind="text: data.timesheets().length"></span>)</h1>
+    <h1>Timesheets (<span data-bind="text: viewModel.timesheets().length"></span>)</h1>
 </div>
 
 <div id="timesheetGrid" style="display: none;" data-bind="visible: showTimesheets">
@@ -35,7 +34,7 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody data-bind="foreach: data.timesheets">
+        <tbody data-bind="foreach: viewModel.timesheets">
             <tr data-bind="attr: { 'data-row-id': id }">
                 <td><input type="checkbox" data-bind="value: id"/></td>
                 <td data-bind="text: firstname"></td>
@@ -75,185 +74,166 @@
 </div>
 
 <script type="text/javascript">
-var model;
 
 $(function () {
-    var dataRow = function (timesheet) {
-        this.id = ko.observable(timesheet.id);
-        this.firstname = ko.observable(timesheet.firstname);
-        this.lastname = ko.observable(timesheet.lastname);
-        this.month = ko.observable(timesheet.month);
-        this.year = ko.observable(timesheet.year);
-
-        this.update = function (timesheet) {
-            this.id(timesheet.id);
-            this.firstname(timesheet.firstname);
-            this.lastname(timesheet.lastname);
-            this.month(timesheet.month);
-            this.year(timesheet.year);
-        };
-
-        this.edit = function () {
-            var id = this.id();
-
-            $.getJSON(
-                '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
-                { id: id },
-                function (data) {
-                    var form = $('#Timesheet');
-                    $('<input>').attr('type', 'hidden').attr('id', 'id').attr('name', 'id').val(data.id).prependTo(form);
-                    form.find('#FirstName').val(data.firstname);
-                    form.find('#LastName').val(data.lastname);
-                    form.find('#Month').val(data.month);
-                    form.find('#Year').val(data.year);
-                }
-            );
-
-            $('#timesheet-modal').modal('show');
-        };
-
-        this.formattedMonth = ko.computed(function () {
-            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            return monthNames[this.month() - 1];
-        }, this);
-    };
-
-    var data = function () {
-        this.timesheets = ko.observableArray();
-    };
-
-    viewModel = function () {
-        this.data = new data();
-
-        this.showTimesheets = ko.observable(false);
-
-        this.loading = ko.observable(false);
-
-        this.loadTimesheets = function () {
-            this.loading(true);
-            var self = this;
-            $.getJSON(
-                '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
-                function (timesheets) {
-                    self.data.timesheets.removeAll();
-                    $.each(timesheets, function (index, timesheet) {
-                        self.data.timesheets.push(new dataRow(timesheet));
-                    });
-                    self.showTimesheets(self.data.timesheets().length > 0);
-                    self.loading(false);
-                }
-            );
-        };
-
-        this.postTimesheet = function (form) {
-            form = $(form);
-            if (!form.valid())
-                return false;
-
-            var json = JSON.stringify(this._getTimesheetFromFrom(form));
-
-            var update = form.find("input[type='hidden'][id='id']").val();
-            var httpVerb = !update ? "POST" : "PUT";
-
-            var self = this;
-
-            $.ajax({
-                url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
-                type: httpVerb,
-                data: json,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (timesheet) {
-                    if (update) {
-                        form.find("input[type='hidden'][id='id']").remove();
-                        var match = ko.utils.arrayFirst(model.data.timesheets(), function (item) {
-                            return timesheet.id === item.id();
-                        });
-                        match.update(timesheet);
-                    }
-                    else {
-                        model.data.timesheets.push(new dataRow(timesheet));
-                        self.showTimesheets(self.data.timesheets().length > 0);
-                    }
-                    $('#timesheet-modal').modal('hide');
-                },
-                error: function () {
-                    console.log('error');
-                }
-            });
-        };
-
-        this.selectAll = function () {
-            $("#timesheets input[type=checkbox]").attr('checked', 'checked');
-        };
-
-        this.deselectAll = function () {
-            $("#timesheets input[type=checkbox]").removeAttr('checked');
-        };
-
-        this.showDeletionWarning = function () {
-            var checkboxes = $("#timesheets").find(":checkbox:checked:not([readonly])");
-            var ids = new Array();
-            $.each(checkboxes, function (index, checkbox) {
-                ids.push($(checkbox).val());
-            });
-
-            if (ids.length == 0)
-                return;
-
-            $('#timesheet-delete').data('ids', ids).modal('show');
-        };
-
-        this.deleteTimesheets = function () {
-            var ids = $('#timesheet-delete').data('ids');
-            $('#timesheet-delete').modal('hide');
-
-            var self = this;
-
-            $.ajax({
-                url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
-                type: 'DELETE',
-                data: JSON.stringify(ids),
-                contentType: 'application/json; charset=utf-8',
-                success: function () {
-                    $.each(ids, function (index, id) {
-                        var match = ko.utils.arrayFirst(self.data.timesheets(), function (item) {
-                            return id === item.id;
-                        });
-                        var indexOf = self.data.timesheets.indexOf(match);
-                        self.data.timesheets.splice(indexOf, 1);
-                    });
-                    self.showTimesheets(self.data.timesheets().length > 0);
-                },
-                error: function () {
-                    alert('error');
-                }
-            });
-        };
-
-        this.resetForm = function () {
-            var form = $('#Timesheet');
-            form.validate().resetForm();
-            form.get(0).reset();
-        };
-
-        this._getTimesheetFromFrom = function (form) {
-            if (form.length === 0)
-                return null;
-
-            form = $(form);
-            var timesheet = {};
-            form.find('input[type!=submit],select').each(function () {
-                timesheet[this.name] = $(this).val();
-            });
-
-            return timesheet;
-        };
-    };
-
-    model = new viewModel();
-    ko.applyBindings(model);
-    model.loadTimesheets();
+    ko.applyBindings(viewModel);
+    viewModel.loadTimesheets();
 });
+
+function timesheet(timesheet) {
+    this.id = ko.observable(timesheet.id);
+    this.firstname = ko.observable(timesheet.firstname);
+    this.lastname = ko.observable(timesheet.lastname);
+    this.month = ko.observable(timesheet.month);
+    this.year = ko.observable(timesheet.year);
+
+    this.edit = function() {
+        var form = $('#Timesheet');
+        $('<input>').attr('type', 'hidden').attr('id', 'id').attr('name', 'id').val(this.id()).prependTo(form);
+        form.find('#FirstName').val(this.firstname());
+        form.find('#LastName').val(this.lastname());
+        form.find('#Month').val(this.month());
+        form.find('#Year').val(this.year());
+        $('#timesheet-modal').modal('show');
+    };
+
+    this.update = function(timesheet) {
+        this.id(timesheet.id);
+        this.firstname(timesheet.firstname);
+        this.lastname(timesheet.lastname);
+        this.month(timesheet.month);
+        this.year(timesheet.year);
+    };
+    
+    this.formattedMonth = ko.computed(function() {
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return monthNames[this.month() - 1];
+    }, this);
+}
+
+var viewModel = {
+    timesheets: ko.observableArray([]),
+    showTimesheets: ko.observable(false),
+    loading: ko.observable(false),
+
+    loadTimesheets: function () {
+        this.loading(true);
+        var self = this;
+        $.getJSON(
+            '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
+            function (timesheets) {
+                self.timesheets.removeAll();
+                $.each(timesheets, function (index, item) {
+                    self.timesheets.push(new timesheet(item));
+                });
+                self.showTimesheets(self.timesheets().length > 0);
+                self.loading(false);
+            }
+        );
+    },
+
+    postTimesheet: function (form) {
+        form = $(form);
+        if (!form.valid())
+            return;
+
+        var json = JSON.stringify(this._getTimesheetFromFrom(form));
+        var update = form.find("input[type='hidden'][id='id']").val();
+        var httpVerb = !update ? "POST" : "PUT";
+
+        var self = this;
+
+        $.ajax({
+            url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
+            type: httpVerb,
+            data: json,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (jsonObject) {
+                if (update) {
+                    form.find("input[type='hidden'][id='id']").remove();
+                    var match = ko.utils.arrayFirst(self.timesheets(), function (item) {
+                        return jsonObject.id === item.id();
+                    });
+                    match.update(jsonObject);
+                }
+                else {
+                    self.timesheets.push(new timesheet(jsonObject));
+                    self.showTimesheets(self.timesheets().length > 0);
+                }
+                $('#timesheet-modal').modal('hide');
+            },
+            error: function () {
+                console.log('error');
+            }
+        });
+    },
+
+    selectAll: function () {
+        $("input[type=checkbox]").attr('checked', 'checked');
+    },
+
+    deselectAll: function () {
+        $("input[type=checkbox]").removeAttr('checked');
+    },
+
+    showDeletionWarning: function () {
+        var checkboxes = $(":checkbox:checked:not([readonly])");
+        var ids = new Array();
+        $.each(checkboxes, function (index, checkbox) {
+            ids.push($(checkbox).val());
+        });
+
+        if (ids.length == 0)
+            return;
+
+        $('#timesheet-delete').data('ids', ids).modal('show');
+    },
+
+    deleteTimesheets: function () {
+        var ids = $('#timesheet-delete').data('ids');
+        $('#timesheet-delete').modal('hide');
+
+        var self = this;
+
+        $.ajax({
+            url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "timesheets" })',
+            type: 'DELETE',
+            data: ko.toJSON(ids),
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+                $.each(ids, function (index, id) {
+                    var match = ko.utils.arrayFirst(self.timesheets(), function (item) {
+                        return id === item.id();
+                    });
+                    self.timesheets.remove(match);
+                });
+                self.showTimesheets(self.timesheets().length > 0);
+            },
+            error: function () {
+                console.log('error');
+            }
+        });
+    },
+
+    resetForm: function () {
+        var form = $('#Timesheet');
+        form.validate().resetForm();
+        form.get(0).reset();
+    },
+
+    _getTimesheetFromFrom: function (form) {
+        if (form.length === 0)
+            return null;
+
+        form = $(form);
+        var timesheet = {};
+        form.find('input[type!=submit],select').each(function () {
+            timesheet[this.name] = $(this).val();
+        });
+
+        return timesheet;
+    }
+};
 
 </script>
