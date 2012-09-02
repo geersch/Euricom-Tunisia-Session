@@ -135,6 +135,8 @@ Re-build Knockout enabled page step by step
   Add btn-toolbar (select all, deselect all, delete)
   Add delete functionality (modal and view model functions)
 
+  (Also mention Twitter bootstrap layout elements during this demo)
+
 AppHarbor
 ---------
 
