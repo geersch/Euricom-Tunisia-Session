@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euricom.Web.UI", "Euricom.Web.UI\Euricom.Web.UI.csproj", "{5A437B81-1D28-42C9-AE04-4801E1D735CF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrap", "Bootstrap", "{805D9750-9899-4977-8D86-696655BD149B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrap.Web.UI", "Bootstrap.Web.UI\Bootstrap.Web.UI.csproj", "{5EAFC28B-7717-4FA6-BA37-D747B6AA177F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +17,15 @@ Global
 		{5A437B81-1D28-42C9-AE04-4801E1D735CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A437B81-1D28-42C9-AE04-4801E1D735CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A437B81-1D28-42C9-AE04-4801E1D735CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EAFC28B-7717-4FA6-BA37-D747B6AA177F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EAFC28B-7717-4FA6-BA37-D747B6AA177F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EAFC28B-7717-4FA6-BA37-D747B6AA177F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EAFC28B-7717-4FA6-BA37-D747B6AA177F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5EAFC28B-7717-4FA6-BA37-D747B6AA177F} = {805D9750-9899-4977-8D86-696655BD149B}
 	EndGlobalSection
 EndGlobal

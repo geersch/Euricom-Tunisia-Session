@@ -3,4 +3,47 @@
     Layout = "~/Views/Shared/_master.cshtml";
 }
 
-<h2>Bootstrap</h2>
+<div class="page-header">
+    <div class="pull-right">
+        <img src='@Url.Content("~/img/twitter.png")' alt="Twitter" title="Twitter" style="width: 50px" />
+    </div>
+    <h1>Twitter Bootstrap</h1>
+</div>
+
+<section id="download-bootstrap">
+    <h3>1. Download Twitter Bootstrap</h3>
+    <p>Download the latest version of <a href="http://twitter.github.com/bootstrap/assets/bootstrap.zip">Twitter Bootstrap</a>.</p>
+    
+    <p>You can also <a href="http://twitter.github.com/bootstrap/customize.html" target="_blank">customize</a> the Twitter Bootstrap download. Choose the components, jQuery plugins and default look and feel.</p>
+</section>
+
+<section id="bootstrapping">
+    <h3>2. Bootstrapping a Site</h3>
+    <ul>
+        <li>Start Visual Studio</li>
+        <li>Create a new ASP.NET MVC 4 project (empty template)</li>
+        <li>Add the bootstrap files (css, img and js) to the project</li>
+        <li>Include the latest jQuery version</li>
+        <li>Create a basic master layout (Views\Shared\_master.cshtml)</li>
+        <ul>
+            <li>Make to sure to set the HTML5 DOCTYPE</li>
+            <li>Set to the viewport meta tag to support a responsive design</li>
+            <li>Include the bootstrap CSS
+            <ul>
+                <li>bootstrap.min.css</li>
+                <li>custom.css</li>
+                <li>bootstrap-responsive.min.css</li>
+            </ul>
+            </li>
+            <li>Include jQuery</li>
+            <li>Include the bootstrap js library</li>
+        </ul>
+        <li>Add a HomeController which has an Index action</li>
+        <li>Create a view for the Index action</li>
+        <li>Add a <a href="http://twitter.github.com/bootstrap/components.html#navbar" target="_blank">navbar</a> which is fixed to the top</li>
+        <ul>
+            <li>Demonstrate Twitter Bootstrap's responsive design using the navbar</li>
+            <li>Show effect of media queries in bootstrap-responsive.css</li>
+        </ul>
+    </ol>
+</section>
