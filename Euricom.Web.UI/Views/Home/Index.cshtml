@@ -87,7 +87,9 @@ function timesheet(timesheet) {
     this.month = ko.observable(timesheet.month);
     this.year = ko.observable(timesheet.year);
 
-    this.edit = function() {
+    this.edit = function () {
+        viewModel.resetForm();
+
         var form = $('#Timesheet');
         $('<input>').attr('type', 'hidden').attr('id', 'id').attr('name', 'id').val(this.id()).prependTo(form);
         form.find('#FirstName').val(this.firstname());
