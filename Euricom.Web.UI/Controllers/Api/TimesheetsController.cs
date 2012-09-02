@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Web.Http;
 using Euricom.Web.UI.Infrastructure;
 using Euricom.Web.UI.Models;

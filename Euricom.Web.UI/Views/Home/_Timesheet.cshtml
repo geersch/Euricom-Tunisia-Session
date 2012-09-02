@@ -5,8 +5,7 @@
 	<h3>Timesheet</h3>
 </div>
 
-@using (Html.BeginForm("PostTimesheet", "Home", FormMethod.Post, new { id = "Timesheet", @data_bind = "submit: postTimesheet" }))
-{
+<form id="Timesheet" data-bind="submit: postTimesheet">
     <div class="modal-body">	
         @Html.LabelFor(m => m.FirstName)
         @Html.TextBoxFor(m => m.FirstName)
@@ -30,4 +29,4 @@
 		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
 		<input type="submit" class="btn btn-primary" value="Save" />
 	</div>
-}
+</form>

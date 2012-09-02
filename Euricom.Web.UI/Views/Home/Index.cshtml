@@ -115,7 +115,6 @@ function timesheet(timesheet) {
 
 var viewModel = {
     timesheets: ko.observableArray([]),
-    showTimesheets: ko.observable(false),
     loading: ko.observable(false),
 
     loadTimesheets: function () {
@@ -128,7 +127,6 @@ var viewModel = {
                 $.each(timesheets, function (index, item) {
                     self.timesheets.push(new timesheet(item));
                 });
-                self.showTimesheets(self.timesheets().length > 0);
                 self.loading(false);
             }
         );
@@ -161,7 +159,6 @@ var viewModel = {
                 }
                 else {
                     self.timesheets.push(new timesheet(jsonObject));
-                    self.showTimesheets(self.timesheets().length > 0);
                 }
                 $('#timesheet-modal').modal('hide');
             },
@@ -210,7 +207,6 @@ var viewModel = {
                     });
                     self.timesheets.remove(match);
                 });
-                self.showTimesheets(self.timesheets().length > 0);
             },
             error: function () {
                 console.log('error');
@@ -237,5 +233,9 @@ var viewModel = {
         return timesheet;
     }
 };
+
+viewModel.showTimesheets = ko.computed(function() {
+    return this.timesheets().length > 0;
+}, viewModel);
 
 </script>
