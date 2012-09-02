@@ -5,6 +5,10 @@
     Layout = "~/Views/Shared/_master.cshtml";
 }
 
+<div class="page-header">
+    <h1>Timesheets (<span data-bind="text: data.timesheets().length"></span>)</h1>
+</div>
+
 <div id="timesheetGrid" style="display: none;" data-bind="visible: showTimesheets">
     <div class="btn-toolbar">
         <div class="btn-group">
