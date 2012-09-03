@@ -153,8 +153,7 @@ var viewModel = {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (jsonObject) {
-                if (update) {
-                    form.find("input[type='hidden'][id='id']").remove();
+                if (update) {                    
                     var match = ko.utils.arrayFirst(self.timesheets(), function (item) {
                         return jsonObject.id === item.id();
                     });
@@ -219,6 +218,7 @@ var viewModel = {
 
     resetForm: function () {
         var form = $('#Timesheet');
+        form.find("input[type='hidden'][id='id']").remove();
         form.validate().resetForm();
         form.get(0).reset();
     },
