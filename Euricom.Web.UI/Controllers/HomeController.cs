@@ -33,5 +33,10 @@ namespace Euricom.Web.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult Euricom()
+        {
+            return View();
+        }
     }
 }
