@@ -1,4 +1,4 @@
-# Euricom - Tunesia Session
+# Euricom - Tunisia Session
 
 Demo site developed for a session. Published on AppHarbor:
 
